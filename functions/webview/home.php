@@ -422,6 +422,7 @@ function webview__home($data = []){
                                 <div class="card-body">
                                     <div class="m-3">
                                         <?php f("webview.home.ketentuan")() ?>
+                                        <pre><?php print_r($_SESSION) ?></pre>
                                     </div>
                                 </div>
                             </div>
