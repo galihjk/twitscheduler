@@ -13,7 +13,7 @@ function webview__home__form_post($data){
     ?>
     <div class="row">
         <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
+            <div class="card shadow border-primary mb-4">
                 <?php
                 if($barusan_posting){
                     ?>
@@ -38,6 +38,9 @@ function webview__home__form_post($data){
                         <form action="post.php" method="post" enctype="multipart/form-data">
                             <div class="mb-3">
                                 <textarea class="form-control" name="text" placeholder="Tulis pesanmu di sini.."></textarea>
+                                <div class="text-right">
+                                    <small> Sesuaikan dengan ketentuan </small>
+                                </div>
                             </div>
                             <div>
                                 <div class="form-group row">
@@ -48,6 +51,17 @@ function webview__home__form_post($data){
                                             (Jika menambahkan media, biaya media akan diterapkan 
                                             <button type="button" onclick="document.getElementById('fileToUpload').value=''" style='font-size: smaller;'>kosongkan media</button>)
                                         </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-group row">
+                                    <label for="tglschedule" class="col-sm-2 col-form-label">Jadwal Posting</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="datetime-local" 
+                                        min="<?=date("Y-m-d").'T'.date("H:i", time()+120)?>"
+                                        value="<?=date("Y-m-d").'T'.date("H:i", time()+120)?>"
+                                        name="tglschedule" id="tglschedule" >
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +90,7 @@ function webview__home__form_post($data){
             </div>
         </div>
         <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
+            <div class="card shadow border-primary mb-4">
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Informasi Biaya</h6>

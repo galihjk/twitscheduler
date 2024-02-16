@@ -408,6 +408,8 @@ function webview__home($data = []){
 
                     </div>
 
+                    <?php f("webview.home.scheduled_list")($data); ?>
+
                     <?php f("webview.home.form_post")($data); ?>
 
                     <!-- Content Row -->
@@ -415,7 +417,7 @@ function webview__home($data = []){
 
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow border-primary mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Ketentuan</h6>
                                 </div>
@@ -429,7 +431,7 @@ function webview__home($data = []){
                         </div>
 
                         <div class="col-lg-6 mb-4">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow border-primary mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Postingan Anda</h6>
                                 </div>
