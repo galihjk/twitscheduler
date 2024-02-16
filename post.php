@@ -33,10 +33,10 @@ foreach($banned_word as $val){
     }
 }
 
-$last_post = f("db.select_one")("select time from posts where user_id='$userid' order by time desc");
-if(!empty($last_post['time'])){
+$last_post = f("db.select_one")("select input_time from posts where user_id='$userid' order by input_time desc");
+if(!empty($last_post['input_time'])){
     $wait_per_post = f("get_config")("wait_per_post",0);
-    $last_post_time = strtotime($last_post['time']);
+    $last_post_time = strtotime($last_post['input_time']);
     $since_last = time() - $last_post_time;
     if($since_last <= $wait_per_post){
         $info = "GAGAL:<br>Anda baru saja posting, silakan tunggu ".($wait_per_post-$since_last)." detik.";
@@ -51,13 +51,16 @@ $media_quota_max = f("get_config")("media_quota_max",0);
 $media_quota_seconds = f("get_config")("media_quota_seconds",0);
 $media_biaya = f("get_config")("media_biaya",0);
 $output = "";
+$media = "";
+$text = $_POST['text'];
+$schedule = $_POST['schedule'];
 if(!empty($_FILES["fileToUpload"]["name"])){
     $output .= "Anda akan memposting media.<br>";
     $q_quota_used = "select count(1) cnt from posts where 
     user_id='$userid' 
     and is_free = '1'
     and type='img'
-    and time > now() - interval $media_quota_seconds second";
+    and input_time > now() - interval $media_quota_seconds second";
     $datadb = f("db.q")($q_quota_used);
     if(!isset($datadb[0])){
         f("webview.errorpost")("Mohon maaf, data penggunaan tidak bisa didapatkan dari database, coba lagi nanti.");
@@ -88,10 +91,12 @@ if(!empty($_FILES["fileToUpload"]["name"])){
         }
     }
     $type = "img";
-    $target_dir = "temp/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $target_dir = "scheduled_media/";
+    $filetype = pathinfo($_FILES["fileToUpload"]["name"], PATHINFO_EXTENSION);
+    $media = $userid."_".md5(date("YmdHis").rand(0,99)).".$filetype";
+    $target_file = $target_dir . $media;
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
-    $result = f("twitter.post_media")($_POST['text'],$target_file);
+    // $result = f("twitter.post_media")($_POST['text'],$target_file);
     /*
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -114,7 +119,7 @@ else{
     user_id='$userid' 
     and is_free = '1'
     and type='txt'
-    and time > now() - interval $txt_quota_seconds second";
+    and input_time > now() - interval $txt_quota_seconds second";
     $datadb = f("db.q")($q_quota_used);
     if(!isset($datadb[0])){
         f("webview.errorpost")("Mohon maaf, data penggunaan tidak bisa didapatkan dari database, coba lagi nanti.");
@@ -145,18 +150,22 @@ else{
         }
     }
     $type = "txt";
-    $result = f("twitter.post_text")($_POST['text']);
+    // $result = f("twitter.post_text")($_POST['text']);
 }
 // echo "<pre>";
 // print_r($result);
 // die();
-$msgid = $result->data->id;
+// $msgid = $result->data->id;
 f("db.q")(
-    "insert into posts (id, time, type, user_id, is_free) 
-    values ('$msgid', '".date("Y-m-d H:i:s")."', '$type', '$userid', '$is_free')"
+    "insert into posts 
+    (input_time, type, user_id, is_free,
+    text, media, schedule) 
+    values 
+    ('".date("Y-m-d H:i:s")."', '$type', '$userid', '$is_free',
+    ".f("str.dbq")($text).",'$media','$schedule' )"
 );
-$username = f("get_config")("username");
-$link = "https://twitter.com/$username/status/$msgid";
+// $username = f("get_config")("username");
+// $link = "https://twitter.com/$username/status/$msgid";
 // header("Location: https://twitter.com/$username/status/$msgid");
 // exit();
 // echo "<pre>";
@@ -165,11 +174,4 @@ $link = "https://twitter.com/$username/status/$msgid";
 // print_r($result);
 echo "<br><h3>$output</h3>";
 ?>
-<a href='<?=$link?>'>Lihat (otomatis dipilih dalam 10 detik)</a>
-<br>
 <a href='index.php'>Kembali</a>
-<script>
-    setTimeout(() => {
-        window.location.href = "<?=$link?>";
-    }, 10000);
-</script>

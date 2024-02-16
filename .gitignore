@@ -2,5 +2,6 @@
 /log
 /data
 /temp
+/scheduled_media
 config.php
 setelan awal.docx

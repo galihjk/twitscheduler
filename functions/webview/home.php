@@ -14,7 +14,7 @@ function webview__home($data = []){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Confess Me @<?=$data['base_username']?></title>
+    <title>Twit Scheduler</title>
     <link rel="icon" type="image/x-icon" href="https://abs.twimg.com/favicons/twitter.3.ico">
 
     <!-- Custom fonts for this template-->
@@ -41,7 +41,7 @@ function webview__home($data = []){
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Confess Me</div>
+                <div class="sidebar-brand-text mx-3">Twit Scheduler</div>
             </a>
 
             <!-- Divider -->
@@ -391,7 +391,7 @@ function webview__home($data = []){
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Confess Me </h1>
+                        <h1 class="h3 mb-0 text-gray-800">Twit Scheduler </h1>
                     </div>
 
                     <!-- Content Row -->
@@ -416,7 +416,7 @@ function webview__home($data = []){
                     <div class="row">
 
                         <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-8 mb-4">
                             <div class="card shadow border-primary mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Ketentuan</h6>
@@ -424,12 +424,27 @@ function webview__home($data = []){
                                 <div class="card-body">
                                     <div class="m-3">
                                         <?php f("webview.home.ketentuan")() ?>
-                                        <pre><?php print_r($_SESSION) ?></pre>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="col-lg-4 mb-4">
+                            <div class="card shadow border-primary mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Informasi Biaya</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="m-3">
+                                        <?php f("webview.home.informasi_biaya")() ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--
                         <div class="col-lg-6 mb-4">
                             <div class="card shadow border-primary mb-4">
                                 <div class="card-header py-3">
@@ -449,7 +464,7 @@ function webview__home($data = []){
                                         foreach($data["my_posts"] as $item){
                                             ?>
                                             <li>
-                                                <a target="_blank" href="https://twitter.com/<?=$data['base_username']?>/status/<?=$item['id']?>"><?=date("l, j F Y H:i:s", strtotime($item['time']))?></a>
+                                                <a target="_blank" href="https://twitter.com/<?=$data['base_username']?>/status/<?=$item['id']?>"><?=date("l, j F Y H:i:s", strtotime($item['input_time']))?></a>
                                             </li>
                                             <?php
                                         }
@@ -461,6 +476,7 @@ function webview__home($data = []){
                                 </div>
                             </div>
                         </div>
+                        -->
                         
                     </div>
 

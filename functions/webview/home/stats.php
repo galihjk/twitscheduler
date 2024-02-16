@@ -2,7 +2,7 @@
 function webview__home__stats($data){
     f("webview._component.statcard")([
         'color'=>'success',
-        'title'=>'Kuota Menfess Terpakai Saat Ini',
+        'title'=>'Kuota Utama Terpakai Saat Ini',
         'icon'=>'fa-clock',
         'content'=>f("webview.home.stats.main_quota")($data),
     ]);

@@ -3,6 +3,9 @@ function webview__home__ketentuan(){
     ?>
     <ol>
         <li>
+            Jadwal Posting paling cepat adalah <?=f("get_config")("menit_minimal",0)?> menit dari saat penginputan skedul.
+        </li>
+        <li>
             Teks harus mengandung setidaknya satu dari:
             <ul>
                 <?php
@@ -13,7 +16,7 @@ function webview__home__ketentuan(){
             </ul>
         </li>
         <li>
-            KUOTA MENFESS adalah kuota yang bisa dipakai menfess saat ini, jika sudah terpakai semua, silakan tunggu sampai ada kuota lagi untuk bisa melakukan posting. Jika masih ada kuota, silakan gunakan,siapa cepat dia dapat.
+            KUOTA UTAMA adalah kuota yang bisa dipakai aplikasi saat ini, jika sudah terpakai semua, silakan tunggu sampai ada kuota lagi untuk bisa melakukan posting. Jika masih ada kuota, silakan gunakan,siapa cepat dia dapat.
         </li>
         <li>
             KUOTA GRATIS adalah kuota yang bisa anda gunakan secara gratis, baik itu dengan media, atau tanpa media.

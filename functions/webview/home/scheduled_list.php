@@ -6,7 +6,7 @@ function webview__home__scheduled_list($data){
             <div class="card shadow border-primary mb-4">
                 <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Jadwal Tweet Anda</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tweet Anda</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -15,8 +15,8 @@ function webview__home__scheduled_list($data){
                             <tr>
                             <th scope="col">#</th>
                             <th scope="col">Twit</th>
-                            <th scope="col">Media</th>
                             <th scope="col">Jadwal Posting</th>
+                            <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>

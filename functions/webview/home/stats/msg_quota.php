@@ -13,18 +13,18 @@ function webview__home__stats__msg_quota($data){
         if($item['type'] == 'txt' and $txt_used > $txt_quota_max) continue;
         if($item['type'] == 'img' and $media_used > $media_quota_max) continue;
         if($item['type'] == 'txt'){
-            if(!empty($item['is_free']) and $current_time-strtotime($item['time']) <= $txt_quota_seconds){
+            if(!empty($item['is_free']) and $current_time-strtotime($item['input_time']) <= $txt_quota_seconds){
                 $txt_used++;
                 if($secondleft_txt === false){
-                    $secondleft_txt = $txt_quota_seconds - ($current_time-strtotime($item['time']));
+                    $secondleft_txt = $txt_quota_seconds - ($current_time-strtotime($item['input_time']));
                 }
             }
         }
         if($item['type'] == 'img'){
-            if(!empty($item['is_free']) and $current_time-strtotime($item['time']) <= $media_quota_seconds){
+            if(!empty($item['is_free']) and $current_time-strtotime($item['input_time']) <= $media_quota_seconds){
                 $media_used++;
                 if($secondleft_img === false){
-                    $secondleft_img = $media_quota_seconds - ($current_time-strtotime($item['time']));
+                    $secondleft_img = $media_quota_seconds - ($current_time-strtotime($item['input_time']));
                 }
             }
         }
