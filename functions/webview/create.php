@@ -1,5 +1,5 @@
 <?php
-function webview__home($data = []){
+function webview__create($data = []){
     ?>
     
     
@@ -33,7 +33,7 @@ function webview__home($data = []){
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <?=f("webview._component.sidebar")("index")?>
+        <?=f("webview._component.sidebar")("create")?>
 
         <!-- Content Wrapper -->
         
@@ -249,24 +249,48 @@ function webview__home($data = []){
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Twit Scheduler </h1>
+                        <h1 class="h3 mb-0 text-gray-800">Buat Postingan - Twit Scheduler</h1>
                     </div>
+
+                    <div class="mb-2">
+                        <a href='index.php' class='btn btn-secondary btn-sm'>Kembali</a>
+                    </div>
+
+                    <?php f("webview.create.form_post")($data); ?>
 
                     <!-- Content Row -->
                     <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-7 mb-4">
+                            <div class="card shadow border-primary mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ketentuan</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="m-3">
+                                        <?php f("webview.home.ketentuan")() ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 mb-4">
+                            <div class="card shadow border-primary mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Informasi Biaya</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="m-3">
+                                        <?php f("webview.home.informasi_biaya")() ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <?php
-                        if($data['check_follow'] == true){
-                            f("webview.home.stats")($data);
-                        }
-                        else{
-                            f("webview.home.need_follow")($data);
-                        }
-                        ?>
-
                     </div>
-
-                    <?php f("webview.home.scheduled_list")($data); ?>
 
                 </div>
                 <!-- /.container-fluid -->

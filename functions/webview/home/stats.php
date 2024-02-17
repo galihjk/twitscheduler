@@ -1,11 +1,11 @@
 <?php
 function webview__home__stats($data){
-    f("webview._component.statcard")([
-        'color'=>'success',
-        'title'=>'Kuota Utama Terpakai Saat Ini',
-        'icon'=>'fa-clock',
-        'content'=>f("webview.home.stats.main_quota")($data),
-    ]);
+    // f("webview._component.statcard")([
+    //     'color'=>'success',
+    //     'title'=>'Kuota Utama Terpakai Saat Ini',
+    //     'icon'=>'fa-clock',
+    //     'content'=>f("webview.home.stats.main_quota")($data),
+    // ]);
     f("webview._component.statcard")([
         'color'=>'danger',
         'title'=>'Kuota Gratis Terpakai Anda',
