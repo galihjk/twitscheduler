@@ -4,24 +4,26 @@ $user = f("cek_login")();
 $userid = $user["id"];
 // echo "<a href='index.php'>ok</a>";
 $must_contains_one_of = f("get_config")("must_contains_one_of",[" "]);
-$valid = false;
-foreach($must_contains_one_of as $val){
-    if(f("str.contains")($_POST['text'],"$val ")
-    or f("str.contains")($_POST['text'],"$val#")
-    or f("str.contains")($_POST['text'],"$val,")
-    or f("str.contains")($_POST['text'],"$val.")
-    or f("str.contains")($_POST['text'],"$val/")
-    or f("str.contains")($_POST['text'],"$val\n")
-    or f("str.contains")($_POST['text'],"$val\r\n")
-    or f("str.is_diakhiri")($_POST['text'],$val)
-    ){
-        $valid = true;
-        break;
+if(!empty($must_contains_one_of)){
+    $valid = false;
+    foreach($must_contains_one_of as $val){
+        if(f("str.contains")($_POST['text'],"$val ")
+        or f("str.contains")($_POST['text'],"$val#")
+        or f("str.contains")($_POST['text'],"$val,")
+        or f("str.contains")($_POST['text'],"$val.")
+        or f("str.contains")($_POST['text'],"$val/")
+        or f("str.contains")($_POST['text'],"$val\n")
+        or f("str.contains")($_POST['text'],"$val\r\n")
+        or f("str.is_diakhiri")($_POST['text'],$val)
+        ){
+            $valid = true;
+            break;
+        }
     }
-}
-if(!$valid){
-    $info = "GAGAL:<br>Teks harus mengandung " . implode("/",$must_contains_one_of) . ".";
-    f("webview.errorpost")($info);
+    if(!$valid){
+        $info = "GAGAL:<br>Teks harus mengandung " . implode("/",$must_contains_one_of) . ".";
+        f("webview.errorpost")($info);
+    }
 }
 
 $banned_word = f("get_config")("banned_word",[]);

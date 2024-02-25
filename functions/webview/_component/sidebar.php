@@ -34,6 +34,12 @@ function webview___component__sidebar($currentPage){
                         <span>Top Up</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#premiumModal">
+                        <i class="fas fa-crown text-warning"></i>
+                        <span>Premium</span>
+                    </a>
+                </li>
                 <?php 
                 /*
                 <!-- Divider -->
@@ -146,6 +152,7 @@ function webview___component__sidebar($currentPage){
                 <!-- End of Sidebar -->
 
                 <?=f("webview._component.topupmodal")()?>
+                <?=f("webview._component.premiummodal")()?>
     <?php
 }
     

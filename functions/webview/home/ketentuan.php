@@ -5,6 +5,7 @@ function webview__home__ketentuan(){
         <!-- <li>
             Jadwal Posting paling cepat adalah <?=f("get_config")("menit_minimal",0)?> menit dari saat penginputan skedul.
         </li> -->
+        <?php if(!empty(f("get_config")("must_contains_one_of"))) { ?>
         <li>
             Teks harus mengandung setidaknya satu dari:
             <ul>
@@ -15,6 +16,7 @@ function webview__home__ketentuan(){
                 ?>
             </ul>
         </li>
+        <?php } ?>
         <!-- <li>
             KUOTA UTAMA adalah kuota yang bisa dipakai aplikasi saat ini, jika sudah terpakai semua, silakan tunggu sampai ada kuota lagi untuk bisa melakukan posting. Jika masih ada kuota, silakan gunakan,siapa cepat dia dapat.
         </li> -->

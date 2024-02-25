@@ -1,6 +1,10 @@
 <?php 
 include("init.php");
+$jobsuccesslog = [];
+
 $current_time = date("Y-m-d H:i:s");
+$jobsuccesslog[] = $current_time;
+
 dump("current_time=$current_time");
 $limit_per_job = f("get_config")("limit_per_job",10);
 dump("limit_per_job=$limit_per_job");
@@ -10,6 +14,7 @@ and (status='suspend' or status is null)
 order by schedule asc";
 
 dump($q);
+$jobsuccesslog[] = $q;
 $my_posts = f("db.q")($q);
 $delayed_post = [];
 $count = 0;
@@ -21,7 +26,9 @@ foreach($my_posts as $k=>$item){
     $count++;
 }
 dump(['my_posts'=>$my_posts]);
+$jobsuccesslog[] = ['my_posts'=>$my_posts];
 dump(['delayed_post'=>$delayed_post]);
+$jobsuccesslog[] = ['delayed_post'=>$delayed_post];
 
 foreach($delayed_post as $item){
     if(empty($q_delay)) $q_delay = [];
@@ -32,6 +39,7 @@ foreach($delayed_post as $item){
 }
 if(!empty($q_delay)){
     dump(['q_delay'=>$q_delay]);
+    $jobsuccesslog[] = ['q_delay'=>$q_delay];
     foreach($q_delay as $q){
         f("db.q")($q);
     }
@@ -44,6 +52,7 @@ $wait = f("get_config")("job_wait_per_post");
 foreach($my_posts as $item){
     $posted_at = date("Y-m-d H:i:s");
     dump('posting [id='.$item['id']."] $posted_at");
+    $jobsuccesslog[] = 'posting [id='.$item['id']."] $posted_at";
     $user = f("user.get")($item['user_id']);
     $connection = f("twitter.connect")($user['token'],$user['token_secret']);
     if($item['type'] == "txt"){
@@ -80,16 +89,23 @@ foreach($my_posts as $item){
         $q_post[] = $q;
         if($item['type'] == "img") unlink($filepath);
         dump("success: https://twitter.com/".$user['screen_name']."/status/$msg_id");
+        $jobsuccesslog[] = "success: https://twitter.com/".$user['screen_name']."/status/$msg_id";
     }
     $done_count++;
     if($done_count < $post_count){
         dump("$done_count/$post_count done, wait $wait s");
+        $jobsuccesslog[] = "$done_count/$post_count done, wait $wait s";
         sleep($wait);
     }
 }
 if(!empty($q_post)){
     dump(['q_post'=>$q_post]);
+    $jobsuccesslog[] = ['q_post'=>$q_post];
     foreach($q_post as $q){
         f("db.q")($q);
     }
+}
+
+if(!empty($my_posts) or !empty($delayed_post)){
+    file_put_contents("log/job_".date("H-i").".txt",print_r($jobsuccesslog,true));
 }
