@@ -24,7 +24,7 @@ $check_follow = true;
 $allow_post = true;
 
 $userid = $user["id"];
-$list_limit = f("get_config")("list_limit",10);
+$list_limit = f("get_config")("txt_quota_max",0)+f("get_config")("media_quota_max",0);
 $q = "select * from posts where 
 user_id='$userid'     
 order by schedule desc limit $list_limit";

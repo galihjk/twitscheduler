@@ -2,7 +2,7 @@
 function webview__home__scheduled_list($data){
     // dump($data);
     $screen_name = $_SESSION['access_token']['screen_name'];
-    $list_limit = f("get_config")("list_limit",10);
+    $list_limit = f("get_config")("txt_quota_max",0)+f("get_config")("media_quota_max",0);
     ?>
     <style>
         .errorbox{
